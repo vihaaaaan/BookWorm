@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Link Page</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include Google Fonts CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+    <style>
+        .form-control {
+            margin-top: 250px;
+        }
+        /* Center the button horizontally */
+        .center-button {
+            display: block;
+            margin: 0 auto;
+        }
+        /* Apply custom font to quote */
+        .quote h3{
+            font-family: 'Caveat', cursive;
+            font-size: 80px; /* Adjust font size as needed */
+            text-align: center;
+            margin-bottom: 10px; /* Adjust spacing between quote and form */
+        }
+        .quote-space{
+            margin-top: 200px
+        }
+    </style>
+</head>
+<body>
+<div class="quote-text">
+    <div class="quote"> <!-- Added quote class -->
+        <h3 class="font-weight-bold quote-space" >Empower your students for tomorrow with the knowledge of today!</h3>
+    </div>
+</div>
+
+<div class="Link">
+    <form>
+        <div class="input-group mb-3">
+            <input type="url" class="form-control" placeholder="Paste your article link here:" aria-label="Article link" aria-describedby="basic-addon1">
+        </div>
+        <button type="submit" class="btn btn-primary center-button">Submit</button>
+    </form>
+</div>
+
+<!-- Include Bootstrap JS (Optional) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
