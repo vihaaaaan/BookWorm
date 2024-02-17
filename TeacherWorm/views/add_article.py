@@ -1,9 +1,13 @@
+from datetime import datetime
+
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.template import 
+from django.template import Template
 import re
 from bs4 import BeautifulSoup
 import requests
+
+from TeacherWorm.models.articles import Article
 
 headers = {
     'accept': '*/*',
@@ -14,6 +18,25 @@ headers = {
 }
 
 
+def load_to_models(article):
+    article = article[0]
+    # Create the Article instance
+    article_instance = Article(
+        title=article['headline'],
+        author=article['author'],
+        date_published=article['posted'],
+        source=article['source'],
+        original_text=article['description'].replace('\n', '</p><br></br><p>'),
+        # Assuming these fields are not provided in the dictionary and will be populated later
+        difficulty_level_easy_text='',
+        difficulty_level_medium_text='',
+        difficulty_level_hard_text='',
+    )
+
+    # Save the instance to the database
+    article_instance.save()
+
+
 def add_article(request):
     context = {}
     if request.method == 'POST':
@@ -21,7 +44,7 @@ def add_article(request):
         if article_url:
             print("Successfully posted:", article_url)
             dict = get_the_news(article_url)
-            print(dict)
+            load_to_models(dict)
             #Call a function to get scraped data from URL
             #Call another function to load scraped data into database model
 
