@@ -9,8 +9,18 @@
     <!-- Include Google Fonts CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
     <style>
+        .outlined-box {
+            border: 2px solid black; /* border width and color */
+            padding: 20px; /* spacing between content and border */
+            width: 200px; /* width of the box */
+            height: 100px; /* height of the box */
+        }
         .form-control {
-            margin-top: 250px;
+            margin-top: 20px; /* Adjust the margin as needed */
+            width: 300px; /* Adjust the width as needed */
+            border: 2px solid black; /* border width and color for the text box */
+            padding: 10px; /* spacing between text and border */
+            border-radius: 5px; /* border radius for rounded corners */
         }
         /* Center the button horizontally */
         .center-button {
@@ -18,34 +28,72 @@
             margin: 0 auto;
         }
         /* Apply custom font to quote */
-        .quote h3{
+        .quote h3 {
             font-family: 'Caveat', cursive;
             font-size: 80px; /* Adjust font size as needed */
             text-align: center;
             margin-bottom: 10px; /* Adjust spacing between quote and form */
         }
-        .quote-space{
-            margin-top: 200px
+        .quote-space {
+            margin-top: 180px; /* Adjust the margin as needed */
+        }
+        .top-box {
+            background-color: white; /* Background color for the white box */
+            width: 100%; /* Width to stretch across the top of the screen */
+            border-bottom: 2px solid black; /* Border at the bottom of the white box */
+        }
+        .navbar-right .nav-item {
+            margin-left: auto;
         }
     </style>
 </head>
-<body>
+<body style="background-color:#E6D2EC"> <!-- Apply background color to the body element -->
+
+<div class="top-box">
+    <!-- Bootstrap Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Teachers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link Drop</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav navbar-right">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Sign up</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Log in</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
 <div class="quote-text">
-    <div class="quote"> <!-- Added quote class -->
+    <div class="quote above"> <!-- Added quote class -->
         <h3 class="font-weight-bold quote-space" >Empower your students for tomorrow with the knowledge of today!</h3>
     </div>
 </div>
 
-<div class="Link">
-    <form method="post">
-        {% csrf_token %}
+<div class="container mt-5">
+    <form>
         <div class="input-group mb-3">
-            <!-- Manually render the form field -->
-            <input type="url" class="form-control" placeholder="Paste your article link here:" aria-label="Article link" name="content" id="id_content">
+            <input type="url" class="form-control" placeholder="Paste your article link here:" aria-label="Article link" aria-describedby="basic-addon1">
         </div>
         <button type="submit" class="btn btn-primary center-button">Submit</button>
     </form>
 </div>
+
+<!-- Image import -->
+    <img src="../../images/bookWormLogo.png" class = "img-fluid" alt = "...">
 
 <!-- Include Bootstrap JS (Optional) -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
