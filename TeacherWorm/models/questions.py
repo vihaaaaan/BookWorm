@@ -2,7 +2,7 @@ from django.db import models
 from articles import Article
 
 
-class Article(models.Model):
+class Question(models.Model):
     created_on = models.DateField(auto_now_add=True)
     question = models.TextField()
     QUESTION_TYPE_CHOICES = [
