@@ -26,7 +26,7 @@ def load_to_models(article):
         author=article['author'],
         date_published=article['posted'],
         source=article['source'],
-        original_text=article['description'],
+        original_text=article['description'].replace('\n', '</p><br></br><p>'),
         # Assuming these fields are not provided in the dictionary and will be populated later
         difficulty_level_easy_text='',
         difficulty_level_medium_text='',
