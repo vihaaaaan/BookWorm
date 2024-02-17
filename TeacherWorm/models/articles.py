@@ -9,10 +9,7 @@ class Article(models.Model):
     source = models.CharField(max_length=500)
     original_text_id = models.CharField(max_length=50, unique=True, blank=True, null=True)
     original_text = models.TextField()
-    difficulty_level_easy_id = models.CharField(max_length=50, unique=True, blank=True, null=True)
     difficulty_level_easy_text = models.TextField()
-    difficulty_level_medium_id = models.CharField(max_length=50, unique=True, blank=True, null=True)
     difficulty_level_medium_text = models.TextField()
-    difficulty_level_hard_id = models.CharField(max_length=50, unique=True, blank=True, null=True)
     difficulty_level_hard_text = models.TextField()
 
