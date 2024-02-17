@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ article.title }}</title>
+</head>
+<body>
+    <h1>{{ article.title }}</h1>
+    <p><strong>Author:</strong> {{ article.author }}</p>
+    <p><strong>Date Published:</strong> {{ article.date_published }}</p>
+    <p><strong>Source:</strong> {{ article.source }}</p>
+    <div>
+        <h2>Original Text:</h2>
+        <div style="white-space: pre-wrap;"><p>{{ article.original_text }}</p></div>
+
+
+        <h2>Difficulty Level - Easy:</h2>
+        <p>{{ article.difficulty_level_easy_text }}</p>
+
+        <h2>Difficulty Level - Medium:</h2>
+        <p>{{ article.difficulty_level_medium_text }}</p>
+
+        <h2>Difficulty Level - Hard:</h2>
+        <p>{{ article.difficulty_level_hard_text }}</p>
+    </div>
+</body>
+</html>

@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'TeacherWorm.apps.TeacherWormConfig',
+    'StudentWorm.apps.StudentWormConfig',
+
 ]
 
 MIDDLEWARE = [
