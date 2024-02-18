@@ -8,6 +8,24 @@ from bs4 import BeautifulSoup
 import requests
 
 from TeacherWorm.models.articles import Article
+from datetime import datetime
+
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.template import Template
+import re
+from bs4 import BeautifulSoup
+import requests
+from TeacherWorm.models.articles import Article
+
+import openai
+from openai import OpenAI
+
+import os
+
+OPENAI_API_KEY = "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"
+#openai.api_key = OPENAI_API_KEY
+client = openai.OpenAI(api_key = OPENAI_API_KEY)
 
 headers = {
     'accept': '*/*',
@@ -47,6 +65,8 @@ def add_article(request):
             load_to_models(dict)
             #Call a function to get scraped data from URL
             #Call another function to load scraped data into database model
+            newText = remake(dict[0], 3)
+            print(newText)
 
     return render(request, 'TeacherWorm/teacher_view.html', context)
 
@@ -128,3 +148,51 @@ def get_the_news(url):
       print(f"Error: Unable to fetch the URL. Status Code: {response.status_code}")
 
     return articles
+
+
+def question(prompt, numQ):
+    print("handling regular")
+
+    messages = [{"role": "system", "content": "You are to making multiple choice test questions based on an article."}]
+    messages.append({"role": "user",
+                     "content": "Generate {num} number of MCQ python dictionaries based on the following article. Set up the dictionaries so there are 5 keys. The first key is Q and should hold the question. The second key is a and should be the correct answer choice. The 3,4,5 keys should be incorrect answer choices:{prompt}"})
+
+    answers = client.chat.completions.create(model="gpt-3.5-turbo",
+                                             messages=messages, )
+    print("recieved from gpt")
+
+    output = answers.choices[0].message.content
+
+    return output
+
+
+def remake(orgArticle, difficulty):
+    print("handling regular")
+    mid = orgArticle["description"]
+    # print(type(mid))
+    if (difficulty == 1):
+        messages = [{"role": "system", "content": "You are to rewrite an article to adjust the reading level."}]
+        messages.append({"role": "user",
+                         "content": f"Rewrite the following article for a reading level between kindergarten and 4th grade.: {mid}"})
+        answers = client.chat.completions.create(model="gpt-3.5-turbo",
+                                                 messages=messages, )
+    elif (difficulty == 2):
+        messages = [{"role": "system", "content": "You are to rewrite an article to adjust the reading level."}]
+        messages.append({"role": "user",
+                         "content": f"Rewrite the following article for a reading level between 5th grade and 7th grade.: {mid}"})
+        answers = client.chat.completions.create(model="gpt-3.5-turbo",
+                                                 messages=messages, )
+    else:
+        messages = [{"role": "system", "content": "You are to rewrite an article to adjust the reading level."}]
+        messages.append({"role": "user",
+                         "content": f"Rewrite the following article for a reading level between 8th grade and 12th grade.: {mid}"})
+        answers = client.chat.completions.create(model="gpt-3.5-turbo",
+                                                 messages=messages, )
+
+        answers = client.chat.completions.create(model="gpt-3.5-turbo",
+                                                 messages=messages, )
+    print("recieved from gpt")
+
+    output = answers.choices[0].message.content
+
+    return output
