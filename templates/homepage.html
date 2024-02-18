@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher View</title>
+    <title>Homepage</title>
     <!-- Include Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Include Google Fonts CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Jost:ital,wght@0,200;1,200&family=Raleway:ital,wght@0,200;1,200&display=swap" rel="stylesheet">
     <style>
         .outlined-box {
             border: 2px solid black; /* border width and color */
@@ -17,12 +20,11 @@
         }
         .form-control {
             margin-top: 20px; /* Adjust the margin as needed */
-            width: 350px; /* Adjust the width as needed */
+            width: 300px; /* Adjust the width as needed */
             border: 2px solid black; /* border width and color for the text box */
-            padding: 20px; /* spacing between text and border */
+            padding: 10px; /* spacing between text and border */
             border-radius: 5px; /* border radius for rounded corners */
         }
-
         /* Center the button horizontally */
         .center-button {
             display: block;
@@ -31,9 +33,9 @@
         /* Apply custom font to quote */
         .quote h3 {
             font-family: 'Caveat', cursive;
-            font-size: 50px; /* Adjust font size as needed */
+            font-size: 80px; /* Adjust font size as needed */
             text-align: center;
-            margin-bottom: 10px; /* Adjust spacing between quote and form */
+            margin-top: 10px
         }
         .quote-space {
             margin-top: 180px; /* Adjust the margin as needed */
@@ -50,31 +52,41 @@
             width: 100px; /* Adjust width as needed */
             height: auto; /* Maintain aspect ratio */
             margin-right: 10px; /* Adjust margin as needed */
-            margin: 0 auto;
+            margin-top: 5px;
+        }
+        .custom-image2 {
+            width: 600px; /* Adjust width as needed */
+            height: auto; /* Maintain aspect ratio */
+            margin-top: -135px; /* Adjust margin as needed */
+        }
+        .image-container {
+            text-align: center; /* Center the image horizontally */
         }
         body {
-            background: linear-gradient(to right, #f6cbd3, #FAF5FC); /* Background gradient */
+            background: linear-gradient(to left, #f6cbd3, #FAF5FC);
         }
-        /* Custom CSS for dropdown */
-        .custom-dropdown {
-            margin-top: 20px; /* Adjust top margin as needed */
-            text-align: center; /* Center the content horizontally */
+        .paragraph{
+            font-family: 'Caveat', cursive;
+            text-align: center;
+            margin-top: -350px;
+            font-size: 30px;
+            text-decoration: underline;
         }
-        .custom-dropdown .form-control {
-            width: 200px; /* Adjust width as needed */
-            margin: 10px auto; /* Center the text boxes horizontally */
+        .sub{
+            margin-right: 20px;
+            margin-bottom: 30px;
+            margin-left: 30px;
+            margin-top: -125px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 100;
+            font-size: 30px;
         }
-        .long-answer{
-            right-padding: 100px;
+        .mabove{
+            margin-top: 100px;
         }
-        .adjuster{
-            margin-bottom: 300px;
+        .mabovetext{
+            margin-top: -10px;
         }
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          }
     </style>
 </head>
 <body> <!-- Apply background color to the body element -->
@@ -83,7 +95,7 @@
     <!-- Bootstrap Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">
-            <img src="../bookWormLogo.png" class="custom-image" alt="Logo">
+            <img src="../../images/bookWormLogo.png" class="custom-image" alt="Logo">
         </a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
@@ -97,7 +109,7 @@
                     <a class="nav-link" href="{% url 'add_article' %}">Link Drop</a>
                 </li>
             </ul>
-            <ul class="navbar-nav navbar-right">
+]            <ul class="navbar-nav navbar-right">
                 <li class="nav-item">
                     <a class="nav-link" href="#">Sign up</a>
                 </li>
@@ -111,34 +123,26 @@
 
 <div class="quote-text">
     <div class="quote above"> <!-- Added quote class -->
-        <h3 class="font-weight-bold quote-space" >Prepare your students for the future with the knowledge of today!</h3>
+        <h3 class="font-weight-bold quote-space" >Welcome to...</h3>
     </div>
 </div>
+<div class="image-container">
+    <img src="../../images/bookWormLogoWorm.png" class="custom-image2" alt="Logo">
+</div>
+<div class="paragraph">
+    <div class="paragraph"> <!-- Added quote class -->
+        <p class="font-weight-bold quote-space underline-text">A new era in literacy education</p>
+    </div>
+</div>
+]<div class="sub">
+    <div class="subheader"> <!-- Added quote class -->
+        <p class="font-weight-bold quote-space underline-text mabove">About Us</p>
+    </div class = "mabovetext">
+        <p>Welcome to BookWorm, where we merge traditional teaching with cutting-edge technology. Our platform empowers teachers to assign tailored articles, dynamically adjusting difficulty levels using AI, ensuring content matches each student's proficiency. Additionally, our AI-generated questions streamline comprehension exercises, saving teachers time while enhancing student engagement and critical thinking. </p>
+    </div>
 
-<div class="container mt-5">
-    <form method="post" action="{% url 'add_article' %}">
-    <div class="col-md-6">
-        <select class="form-control" name="difficulty">
-            <option value="Original">ORIGINAL</option>
-            <option value="Easy">EASY</option>
-            <option value="Medium">MEDIUM</option>
-            <option value="Hard">HARD</option>
-        </select>
-    </div>
-    <div class="input-group mb-3">
-        {% csrf_token %}
-        <div class="input-group mb-3">
-            <input type="url" name="article_url" class="form-control" placeholder="Paste your article link here:" aria-label="Article link" aria-describedby="basic-addon1">
-        </div>
-        <button type="submit" class="btn btn-primary center-button">Assign article</button>
-        {% if article_generated %}
-            <script>
-                window.onload = function() {
-                    alert('The article has been successfully generated.');
-                };
-            </script>
-        {% endif %}
-    </div>
-</form>
-    </body>
+
+<!-- Include Bootstrap JS (Optional) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
 </html>

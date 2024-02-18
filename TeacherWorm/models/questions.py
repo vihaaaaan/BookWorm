@@ -1,14 +1,13 @@
 from django.db import models
-from articles import Article
-
+from TeacherWorm.models.articles import Article
 
 class Question(models.Model):
     created_on = models.DateField(auto_now_add=True)
     question = models.TextField()
     QUESTION_TYPE_CHOICES = [
-        ("MCQ", "Multiple Choice"),
-        ("TF", "True or False"),
-        ("FRQ", "Free Response"),
+        ("MCQ", "MCQ"),
+        ("TF", "TF"),
+        ("FRQ", "FRQ"),
     ]
     question_type = models.CharField(max_length=50, choices=QUESTION_TYPE_CHOICES)
     mcq_incorrect_choice_1 = models.TextField(null=True)
