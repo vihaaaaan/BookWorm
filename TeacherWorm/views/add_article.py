@@ -45,10 +45,7 @@ def load_to_models(article):
         date_published=article['posted'],
         source=article['source'],
         original_text=article['description'].replace('\n', '\n\n'),
-        # Assuming these fields are not provided in the dictionary and will be populated later
-        difficulty_level_easy_text='',
-        difficulty_level_medium_text='',
-        difficulty_level_hard_text='',
+        # Assuming these fields are not provided in the dictionary and will be populated laters
     )
 
     # Save the instance to the database
@@ -66,7 +63,15 @@ def add_article(request):
             #Call a function to get scraped data from URL
             #Call another function to load scraped data into database model
             newText = remake(dict[0], 3)
-            print(newText)
+            questMCQ = []
+            questMCQ = questionM(newText,5)
+            questFRQ = questionF(newText,2)
+            questTF = questionTF(newText,5)
+            print(questMCQ)
+            print(questFRQ)
+            print(questTF)
+            #print(quest)
+            #print(newText)
 
     return render(request, 'TeacherWorm/teacher_view.html', context)
 
@@ -150,12 +155,50 @@ def get_the_news(url):
     return articles
 
 
-def question(prompt, numQ):
+def questionM(prompt, numQ):
     print("handling regular")
 
+    directions = f"Create a list with {numQ} dictionaries in it like [(),(),(),(),()] to hold multiple questions for the following prompt {prompt}. Each dictionary will have five strings. The first string in each dictionary will be the multiple choice question. The second dictionary will the correct answer to the multiple choice question. The next three strings will be the remaining wrong answers to the multiple choice question. "
+    print(directions)
     messages = [{"role": "system", "content": "You are to making multiple choice test questions based on an article."}]
     messages.append({"role": "user",
-                     "content": "Generate {num} number of MCQ python dictionaries based on the following article. Set up the dictionaries so there are 5 keys. The first key is Q and should hold the question. The second key is a and should be the correct answer choice. The 3,4,5 keys should be incorrect answer choices:{prompt}"})
+                     "content": directions})
+
+    answers = client.chat.completions.create(model="gpt-3.5-turbo",
+                                             messages=messages, )
+    print("recieved from gpt")
+
+    output = answers.choices[0].message.content
+
+    return output
+
+
+
+def questionF(prompt, numQ):
+    print("handling regular")
+
+    directions = f"Create a list with {numQ} frq’s based on the following text: {prompt}"
+    print(directions)
+    messages = [{"role": "system", "content": "You are to frq test questions based on an article."}]
+    messages.append({"role": "user",
+                     "content": directions})
+
+    answers = client.chat.completions.create(model="gpt-3.5-turbo",
+                                             messages=messages, )
+    print("recieved from gpt")
+
+    output = answers.choices[0].message.content
+
+    return output
+
+def questionTF(prompt, numQ):
+    print("handling regular")
+    print(prompt)
+    directions = f"Create a list with {numQ} dictionaries in it like [(),(),(),(),()] to hold multiple true or false questions for the following prompt {prompt}. Each dictionary will have three strings. The first string in each dictionary will be the true or false question. The second dictionary will the correct answer. The thrid string will be the wrong answer."
+    print(directions)
+    messages = [{"role": "system", "content": "You are to true or false test questions based on an article."}]
+    messages.append({"role": "user",
+                     "content": directions})
 
     answers = client.chat.completions.create(model="gpt-3.5-turbo",
                                              messages=messages, )
@@ -170,6 +213,7 @@ def remake(orgArticle, difficulty):
     print("handling regular")
     mid = orgArticle["description"]
     # print(type(mid))
+    
     if (difficulty == 1):
         messages = [{"role": "system", "content": "You are to rewrite an article to adjust the reading level."}]
         messages.append({"role": "user",
