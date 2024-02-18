@@ -1,26 +1,97 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ article.title }}</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include Google Fonts CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+<style>
+    .outlined-box {
+        border: 2px solid black;
+        padding: 20px;
+        margin-top: 20px;
+        margin-left: 10px; /* Smaller left margin */
+        margin-right: 10px; /* Smaller right margin */
+        width: auto; /* Adjust width based on the content and available space */
+    }
+    .center-button {
+        display: block;
+        margin: 0 auto;
+    }
+    .quote h3 {
+        font-family: 'Caveat', cursive;
+        font-size: 24px; /* Adjusted for article view */
+        text-align: center;
+        margin: 20px 0;
+    }
+    .top-box {
+        background-color: white;
+        width: 100%;
+        border-bottom: 2px solid black;
+    }
+    .navbar-right .nav-item {
+        margin-left: auto;
+    }
+    body {
+        background: linear-gradient(to right, #f6cbd3, #FAF5FC);
+    }
+    /* Additional styles for article content */
+    .article-content p {
+        white-space: pre-wrap;
+        font-size: 18px; /* Increased font size for article content */
+    }
+    /* Adjusting the overall container to allow for wider text areas */
+    .container {
+        max-width: 95%; /* Increase the maximum width of the container */
+    }
+</style>
 </head>
 <body>
+
+<div class="top-box">
+    <!-- Bootstrap Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img src="../../images/bookWormLogo.png" alt="Logo" style="width: 100px; height: auto; margin-right: 10px;">
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../../Homepage/homepage.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Students</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../../UserWorm/user_view.html">Link Drop</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav navbar-right">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Sign up</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Log in</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="container mt-5">
     <h1>{{ article.title }}</h1>
     <p><strong>Author:</strong> {{ article.author }}</p>
     <p><strong>Date Published:</strong> {{ article.date_published }}</p>
     <p><strong>Source:</strong> {{ article.source }}</p>
-    <div>
-        <h2>Original Text:</h2>
-        <div style="white-space: pre-wrap;"><p>{{ article.original_text }}</p></div>
-
-
-        <h2>Difficulty Level - Easy:</h2>
-        <p>{{ article.difficulty_level_easy_text }}</p>
-
-        <h2>Difficulty Level - Medium:</h2>
-        <p>{{ article.difficulty_level_medium_text }}</p>
-
-        <h2>Difficulty Level - Hard:</h2>
-        <p>{{ article.difficulty_level_hard_text }}</p>
+    <div class="outlined-box">
+        <div style="white-space: pre-wrap;">{{ article.original_text }}</div>
     </div>
+</div>
+
+<!-- Include Bootstrap JS (Optional) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

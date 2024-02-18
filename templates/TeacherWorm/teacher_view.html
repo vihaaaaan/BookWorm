@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Article Link Page</title>
+    <title>Teacher View</title>
     <!-- Include Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Include Google Fonts CSS -->
@@ -45,24 +45,34 @@
         .navbar-right .nav-item {
             margin-left: auto;
         }
+        .custom-image {
+            width: 100px; /* Adjust width as needed */
+            height: auto; /* Maintain aspect ratio */
+            margin-right: 10px; /* Adjust margin as needed */
+        }
+        body {
+            background: linear-gradient(to right, #f6cbd3, #FAF5FC); /* Background gradient */
+        }
     </style>
 </head>
-<body style="background-color:#E6D2EC"> <!-- Apply background color to the body element -->
+<body> <!-- Apply background color to the body element -->
 
 <div class="top-box">
     <!-- Bootstrap Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Home</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <a class="navbar-brand" href="#">
+            <img src="../../images/bookWormLogo.png" class="custom-image" alt="Logo">
+        </a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Teachers</a>
+                    <a class="nav-link" href="../../Homepage/homepage.html">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link Drop</a>
+                    <a class="nav-link" href="#">Students</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../../UserWorm/user_view.html">Link Drop</a>
                 </li>
             </ul>
             <ul class="navbar-nav navbar-right">
@@ -79,21 +89,19 @@
 
 <div class="quote-text">
     <div class="quote above"> <!-- Added quote class -->
-        <h3 class="font-weight-bold quote-space" >Empower your students for tomorrow with the knowledge of today!</h3>
+        <h3 class="font-weight-bold quote-space" >Prepare your students for the future with the knowledge of today!</h3>
     </div>
 </div>
 
 <div class="container mt-5">
-    <form>
+    <form action="{% url 'add_article' %}" method="post">
+        {% csrf_token %}
         <div class="input-group mb-3">
-            <input type="url" class="form-control" placeholder="Paste your article link here:" aria-label="Article link" aria-describedby="basic-addon1">
+            <input type="url" name="article_url" class="form-control" placeholder="Paste your article link here:" aria-label="Article link" aria-describedby="basic-addon1">
         </div>
-        <button type="submit" class="btn btn-primary center-button">Submit</button>
+        <button type="submit" class="btn btn-primary center-button">Assign article</button>
     </form>
 </div>
-
-<!-- Image import -->
-    <img src="../../images/bookWormLogo.png" class = "img-fluid" alt = "...">
 
 <!-- Include Bootstrap JS (Optional) -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
