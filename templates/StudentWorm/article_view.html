@@ -55,12 +55,12 @@
     <!-- Bootstrap Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">
-            <img src="../../images/bookWormLogo.png" alt="Logo" style="width: 100px; height: auto; margin-right: 10px;">
+            <img src="../bookWormLogo.png" alt="Logo" style="width: 100px; height: auto; margin-right: 10px;">
         </a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="../../Homepage/homepage.html">Home</a>
+                    <a class="nav-link" href="{% url 'student_articles' %}">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'student_articles' %}">Students</a>
@@ -80,15 +80,64 @@
         </div>
     </nav>
 </div>
-
 <div class="container mt-5">
     <h1>{{ article.title }}</h1>
-    <p><strong>Author:</strong> {{ article.author }}</p>
-    <p><strong>Date Published:</strong> {{ article.date_published }}</p>
-    <p><strong>Source:</strong> {{ article.source }}</p>
     <div class="outlined-box">
-        <div style="white-space: pre-wrap;">{{ article.original_text }}</div>
+        {% if article.new_text %}
+            <div style="white-space: pre-wrap;">{{ article.new_text }}</div>
+        {% else %}
+            <div style="white-space: pre-wrap;">{{ article.original_text }}</div>
+        {% endif %}
     </div>
+    <!-- Questions Section -->
+    <div class="mt-5">
+        <h2>Questions</h2>
+        <div class="outlined-box mt-3">
+            {% for question in questions %}
+            <p>{{ question.question }}</p>
+            {% if question.question_type == 'MCQ' %}
+            <!-- Display MCQ Choices -->
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question{{ question.id }}" id="correctChoice{{ question.id }}" value="{{ question.mcq_correct_choice }}">
+                <label class="form-check-label" for="correctChoice{{ question.id }}">
+                    {{ question.mcq_correct_choice }}
+                </label>
+            </div>
+            {% if question.mcq_incorrect_choice_1 %}
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question{{ question.id }}" id="incorrectChoice1{{ question.id }}" value="{{ question.mcq_incorrect_choice_1 }}">
+                <label class="form-check-label" for="incorrectChoice1{{ question.id }}">
+                    {{ question.mcq_incorrect_choice_1 }}
+                </label>
+            </div>
+            {% endif %}
+            {% if question.mcq_incorrect_choice_2 %}
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question{{ question.id }}" id="incorrectChoice2{{ question.id }}" value="{{ question.mcq_incorrect_choice_2 }}">
+                <label class="form-check-label" for="incorrectChoice2{{ question.id }}">
+                    {{ question.mcq_incorrect_choice_2 }}
+                </label>
+            </div>
+            {% endif %}
+            {% if question.mcq_incorrect_choice_3 %}
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question{{ question.id }}" id="incorrectChoice3{{ question.id }}" value="{{ question.mcq_incorrect_choice_3 }}">
+                <label class="form-check-label" for="incorrectChoice3{{ question.id }}">
+                    {{ question.mcq_incorrect_choice_3 }}
+                </label>
+            </div>
+            {% endif %}
+                        <br></br>
+
+            {% elif question.question_type == 'FRQ' %}
+                <textarea class="form-control" id="answer{{ question.id }}" rows="3" placeholder="Your answer here..."></textarea>
+                <br></br>
+            {% endif %}
+            {% endfor %}
+        <button type="submit" class="btn btn-primary center-button">Assign article</button>
+        </div>
+    </div>
+</div>
 </div>
 
 <!-- Include Bootstrap JS (Optional) -->

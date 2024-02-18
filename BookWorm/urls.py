@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+
+from BookWorm.views import home_view
 from StudentWorm.views import student_articles
 from TeacherWorm.views import add_article
 
@@ -25,4 +27,5 @@ urlpatterns = [
     path('teacher-worm/', add_article, name='add_articles'),
     path('student-worm/', student_articles, name='student_articles'),
     path('student-worm/', include('StudentWorm.urls')),
+    path('', home_view, name='home'),  # Map the root URL to the home_view
 ]

@@ -25,6 +25,8 @@ import os
 
 import json
 
+from TeacherWorm.models.questions import Question
+
 OPENAI_API_KEY = "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"
 #openai.api_key = OPENAI_API_KEY
 client = openai.OpenAI(api_key = OPENAI_API_KEY)
@@ -38,7 +40,7 @@ headers = {
 }
 
 
-def load_to_models(article):
+def load_to_models(article, difficulty, new_text="", listMCQ=[], listFRQ=[], listTF=[]):
     article = article[0]
     # Create the Article instance
     article_instance = Article(
@@ -47,40 +49,63 @@ def load_to_models(article):
         date_published=article['posted'],
         source=article['source'],
         original_text=article['description'].replace('\n', '\n\n'),
+        difficulty_level=difficulty,
+        new_text=new_text,
         # Assuming these fields are not provided in the dictionary and will be populated laters
     )
 
     # Save the instance to the database
     article_instance.save()
+    load_questions_to_models(article_instance, listMCQ, listFRQ, listTF)
+
 
 
 def add_article(request):
-    context = {}
+    context = {'article_generated': False}  # Initialize the flag as False
     if request.method == 'POST':
         article_url = request.POST.get('article_url', None)
+        num_MCQ = 7
+        num_FRQ = 2
+        num_TF = 4
+        difficulty = request.POST.get('difficulty', None)
+        print(article_url)
+        print(num_MCQ)
+        print(num_FRQ)
+        print(num_TF)
+        print(difficulty)
+        print(type(difficulty))
+        difficulty = difficulty.upper()
+        difficulty_num_map = {"EASY": 1, "MEDIUM" : 2, "HARD" : 3, "ORIGINAL" : 4}
+        difficulty_num = difficulty_num_map[difficulty]
         if article_url:
             print("Successfully posted:", article_url)
             dict = get_the_news(article_url)
-            load_to_models(dict)
             #Call a function to get scraped data from URL
             #Call another function to load scraped data into database model
-            newText = remake(dict[0], 3)
-            questMCQ = []
-            questMCQ = questionM(newText,5)
-            questFRQ = questionF(newText,2)
-            questTF = questionTF(newText,5)
+            if difficulty != "ORIGINAL":
+                newText = remake(dict[0], difficulty_num)
+                questMCQ = []
+                questMCQ = questionM(newText, num_MCQ)
+                questFRQ = questionF(newText,num_FRQ)
+                questTF = questionTF(newText,num_TF)
+            else:
+                newText = ""
+
             #print(type(questMCQ))
             try:
                 listMCQ = json.loads(questMCQ)
             except:
+                listMCQ = []
                 print("failure")
             try:
                 listFRQ = json.loads(questFRQ)
             except:
+                listFRQ = []
                 print("failure")
             try:
                 listTF = json.loads(questTF)
             except:
+                listTF = []
                 print("failure")
             #print(listMCQ[0])
             #print(listFRQ[0])
@@ -89,7 +114,12 @@ def add_article(request):
             #print(quest)
             #print(newText)
 
+            load_to_models(dict, difficulty, newText, listMCQ, listFRQ, listTF)
+            context['article_generated'] = True  # Set the flag as True if article processing is successful
+
+
     return render(request, 'TeacherWorm/teacher_view.html', context)
+
 
 
 def get_article(card,url):
@@ -127,6 +157,40 @@ def get_article(card,url):
         'link':url
     }
     return article
+
+def load_questions_to_models(id, listMCQ=[], listFRQ=[], listTF=[]):
+    count = 0
+    for questions in listMCQ:
+        question_instance = Question(
+            question = questions["question"],
+            question_type = "MCQ",
+            mcq_incorrect_choice_1 = questions["wrong_answers"][0],
+            mcq_incorrect_choice_2 = questions["wrong_answers"][1],
+            mcq_incorrect_choice_3 = questions["wrong_answers"][2],
+            mcq_correct_choice = questions["correct_answer"],
+            article_id = id
+        )
+        question_instance.save()
+        count+=1
+    for questions in listTF:
+        questions_instance = Question(
+            question = questions["question"],
+            question_type = "TF",
+            mcq_correct_choice = questions["correct_answer"],
+            mcq_incorrect_choice_1 = questions["wrong_answer"],
+            article_id = id
+        )
+        question_instance.save()
+        count+=1
+    for questions in listFRQ:
+        question_instance = Question(
+            question = questions["question"],
+            question_type = "FRQ",
+            article_id = id
+        )
+        question_instance.save()
+        count+=1
+    print(count)
 
 def get_the_news(url):
     """Scrape a specific article from the provided URL"""

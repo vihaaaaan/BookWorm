@@ -78,8 +78,12 @@ WSGI_APPLICATION = 'BookWorm.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'bookwormdb',
+        'USER': 'vihaan',
+        'PASSWORD': 'bookworm123',
+        'HOST': 'localhost',  # Or an IP Address that DB is hosted on
+        'PORT': '5432',
     }
 }
 
