@@ -26,7 +26,7 @@ def load_to_models(article):
         author=article['author'],
         date_published=article['posted'],
         source=article['source'],
-        original_text=article['description'].replace('\n', '</p><br></br><p>'),
+        original_text=article['description'].replace('\n', '\n\n'),
         # Assuming these fields are not provided in the dictionary and will be populated later
         difficulty_level_easy_text='',
         difficulty_level_medium_text='',
@@ -40,7 +40,7 @@ def load_to_models(article):
 def add_article(request):
     context = {}
     if request.method == 'POST':
-        article_url = request.POST.get('content', None)
+        article_url = request.POST.get('article_url', None)
         if article_url:
             print("Successfully posted:", article_url)
             dict = get_the_news(article_url)
@@ -48,7 +48,7 @@ def add_article(request):
             #Call a function to get scraped data from URL
             #Call another function to load scraped data into database model
 
-    return render(request, 'TeacherWorm/article _link_page.html', context)
+    return render(request, 'TeacherWorm/teacher_view.html', context)
 
 
 def get_article(card,url):

@@ -8,7 +8,12 @@ class Article(models.Model):
     date_published = models.CharField(max_length=500)
     source = models.CharField(max_length=500)
     original_text = models.TextField()
-    difficulty_level_easy_text = models.TextField()
-    difficulty_level_medium_text = models.TextField()
-    difficulty_level_hard_text = models.TextField()
+    DIFFICULTLY_CHOICES = [
+        ("EASY", "Easy"),
+        ("MEDIUM", "Medium"),
+        ("HARD", "Hard"),
+        ("ORIGINAL", "Original"),
+    ]
+    difficulty_level = models.CharField(max_length=50, choices=DIFFICULTLY_CHOICES, null=True)
+    new_text = models.TextField(null=True)
 

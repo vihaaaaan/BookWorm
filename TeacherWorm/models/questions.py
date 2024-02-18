@@ -16,11 +16,5 @@ class Question(models.Model):
     mcq_incorrect_choice_3 = models.TextField(null=True)
     mcq_correct_choice = models.TextField(null=True)
     article_id = models.ForeignKey(Article, on_delete=models.CASCADE)
-    DIFFICULTLY_CHOICES = [
-        ("EASY", "Easy"),
-        ("MEDIUM", "Medium"),
-        ("HARD", "Hard"),
-        ("ORIGINAL", "Original"),
-    ]
-    difficulty_level = models.CharField(max_length=50, choices=DIFFICULTLY_CHOICES)
+
 
