@@ -45,10 +45,10 @@
                         <a class="nav-link" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Teachers</a>
+                        <a class="nav-link" href="{% url 'student_articles' %}">Students</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link Drop</a>
+                        <a class="nav-link" href="{% url 'add_article' %}">Link Drop</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
@@ -75,25 +75,25 @@
 		</div>
 	</div>
 
+
+    <!-- Articles Section -->
+    {% for article in articles %}
     <div class="container mt-5">
         <ul class="list-group">
             <li class="list-group-item">
 				<p>
-					Article: HERE
+                    <strong><a href="{% url 'read_article' article.id %}">{{ article.title }}</a></strong>
 				</p>
 				<p>
-					Class: HERE
+					Author: {{ article.author }}
 				</p>
-				Link: HERE
-
+				Published on: {{ article.date_published }}
 			</li>
         </ul>
     </div>
+    {% endfor %}
 
-    <div class="container mt-5">
-        <ul class="list-group">
-            <li class="list-group-item">An item 2</li>
-        </ul>
-    </div>
+
+
 </body>
 </html>
