@@ -1,43 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-	<style>
-		.top-box{
-			background-color: white; /* Background color for the white box /
-            width: 100%; / Width to stretch across the top of the screen /
-            border-bottom: 2px solid black; / Border at the bottom of the white box */
-		}
-	</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Box with Border</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .top-box {
+            background-color: white;
+            width: 100%;
+            border-bottom: 2px solid black;
+        }
+
+        .custom-image {
+            width: 100px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        body {
+            background: linear-gradient(to right, #ec9bac, #FAF5FC);
+        }
+
+        .list-group-item {
+            border: 2px solid black;
+            border-radius: 0;
+        }
+    </style>
 </head>
 <body>
-	<div class="top-box">
-		<!-- Bootstrap Navbar -->
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand" href="#">Navbar</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav">
-					<li class="nav-item active">
-						<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Features</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Pricing</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link disabled" href="#">Disabled</a>
-					</li>
-				</ul>
-			</div>
-		</nav>
+    <div class="top-box">
+        <!-- Bootstrap Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">
+                <img src="bookWormLogo.png" class="custom-image" alt="Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Teachers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link Drop</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Sign up</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Log in</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+	<div>
+		<p>
+
+		</p>
 	</div>
+
+	<div class="quote-text text-center">
+		<div class="quote above"> <!-- Added quote class -->
+			<h3 class="font-weight-bold quote-space" >My Assignments</h3>
+		</div>
+	</div>
+
+    <div class="container mt-5">
+        <ul class="list-group">
+            <li class="list-group-item">
+				<p>
+					Article: HERE
+				</p>
+				<p>
+					Class: HERE
+				</p>
+				Link: HERE
+
+			</li>
+        </ul>
+    </div>
+
+    <div class="container mt-5">
+        <ul class="list-group">
+            <li class="list-group-item">An item 2</li>
+        </ul>
+    </div>
 </body>
 </html>
