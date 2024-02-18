@@ -23,6 +23,8 @@ from openai import OpenAI
 
 import os
 
+import json
+
 OPENAI_API_KEY = "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"
 #openai.api_key = OPENAI_API_KEY
 client = openai.OpenAI(api_key = OPENAI_API_KEY)
@@ -67,9 +69,23 @@ def add_article(request):
             questMCQ = questionM(newText,5)
             questFRQ = questionF(newText,2)
             questTF = questionTF(newText,5)
-            print(questMCQ)
-            print(questFRQ)
-            print(questTF)
+            #print(type(questMCQ))
+            try:
+                listMCQ = json.loads(questMCQ)
+            except:
+                print("failure")
+            try:
+                listFRQ = json.loads(questFRQ)
+            except:
+                print("failure")
+            try:
+                listTF = json.loads(questTF)
+            except:
+                print("failure")
+            #print(listMCQ[0])
+            #print(listFRQ[0])
+            #print(listTF[0])
+            
             #print(quest)
             #print(newText)
 
@@ -157,9 +173,10 @@ def get_the_news(url):
 
 def questionM(prompt, numQ):
     print("handling regular")
+    jsonEX = "[{\"question\":\"WhenistheexpectedreleasetimeframefortheiPhone16?\",\"correct_answer\":\"September2024\",\"wrong_answers\":[\"June2023\",\"January2025\",\"August2024\"]},{\"question\":\"WhatisoneexpectedchangeinthedesignoftheiPhone16basemodel?\",\"correct_answer\":\"Verticaldualcameralayout\",\"wrong_answers\":[\"Triplecamerasetup\",\"Horizontalcameralayout\",\"Nocameraimprovements\"]},{\"question\":\"WhatenhancementsareexpectedintheiPhone16Promodels?\",\"correct_answer\":\"Largerdisplaysandcameraimprovements\",\"wrong_answers\":[\"Smallerdisplaysandreducedcameraquality\",\"Nodesignchanges\",\"Slowerchargingspeedsandlowerbatterycapacity\"]},{\"question\":\"WhatnewtechnologyisrumoredtobeincludedintheiPhone16lineup?\",\"correct_answer\":\"Hapticbuttonsandadvancedcamerafeatures\",\"wrong_answers\":[\"Physicalbuttonsandbasiccamerafunctions\",\"Nonewtechnologyupgrades\",\"BiometricsensorsandAIintegration\"]},{\"question\":\"WhatisApple'sfocuswitheachnewiPhonerelease?\",\"correct_answer\":\"Innovationandtechnologyadvancements\",\"wrong_answers\":[\"Cuttingcostsandreducingfeatures\",\"Scalingdownproduction\",\"Delayingreleases\"]}]"
 
-    directions = f"Create a list with {numQ} dictionaries in it like [(),(),(),(),()] to hold multiple questions for the following prompt {prompt}. Each dictionary will have five strings. The first string in each dictionary will be the multiple choice question. The second dictionary will the correct answer to the multiple choice question. The next three strings will be the remaining wrong answers to the multiple choice question. "
-    print(directions)
+    directions = f"Create a JSON list like {jsonEX} without printing \"'''json\" else with {numQ} dictionaries in it like [(),(),(),(),()] that is in json.loads() format to hold multiple questions for the following prompt {prompt}. Each dictionary will have five strings. The first string in each dictionary will be the multiple choice question. The second dictionary will the correct answer to the multiple choice question. The next three strings will be the remaining wrong answers to the multiple choice question. "
+    #print(directions)
     messages = [{"role": "system", "content": "You are to making multiple choice test questions based on an article."}]
     messages.append({"role": "user",
                      "content": directions})
@@ -169,17 +186,19 @@ def questionM(prompt, numQ):
     print("recieved from gpt")
 
     output = answers.choices[0].message.content
-
+    print(output)
     return output
 
 
 
 def questionF(prompt, numQ):
     print("handling regular")
+    jsonEX = "[{\"question\":\"WhenistheexpectedreleasetimeframefortheiPhone16?\",\"correct_answer\":\"September2024\",\"wrong_answers\":[\"June2023\",\"January2025\",\"August2024\"]},{\"question\":\"WhatisoneexpectedchangeinthedesignoftheiPhone16basemodel?\",\"correct_answer\":\"Verticaldualcameralayout\",\"wrong_answers\":[\"Triplecamerasetup\",\"Horizontalcameralayout\",\"Nocameraimprovements\"]},{\"question\":\"WhatenhancementsareexpectedintheiPhone16Promodels?\",\"correct_answer\":\"Largerdisplaysandcameraimprovements\",\"wrong_answers\":[\"Smallerdisplaysandreducedcameraquality\",\"Nodesignchanges\",\"Slowerchargingspeedsandlowerbatterycapacity\"]},{\"question\":\"WhatnewtechnologyisrumoredtobeincludedintheiPhone16lineup?\",\"correct_answer\":\"Hapticbuttonsandadvancedcamerafeatures\",\"wrong_answers\":[\"Physicalbuttonsandbasiccamerafunctions\",\"Nonewtechnologyupgrades\",\"BiometricsensorsandAIintegration\"]},{\"question\":\"WhatisApple'sfocuswitheachnewiPhonerelease?\",\"correct_answer\":\"Innovationandtechnologyadvancements\",\"wrong_answers\":[\"Cuttingcostsandreducingfeatures\",\"Scalingdownproduction\",\"Delayingreleases\"]}]"
 
-    directions = f"Create a list with {numQ} frq’s based on the following text: {prompt}"
-    print(directions)
-    messages = [{"role": "system", "content": "You are to frq test questions based on an article."}]
+    directions = f"Create a JSON list like {jsonEX} with {numQ} frq’s based on the following text: {prompt}"
+
+    #print(directions)
+    messages = [{"role": "system", "content": "You are to create frq test questions based on an article."}]
     messages.append({"role": "user",
                      "content": directions})
 
@@ -193,9 +212,11 @@ def questionF(prompt, numQ):
 
 def questionTF(prompt, numQ):
     print("handling regular")
-    print(prompt)
-    directions = f"Create a list with {numQ} dictionaries in it like [(),(),(),(),()] to hold multiple true or false questions for the following prompt {prompt}. Each dictionary will have three strings. The first string in each dictionary will be the true or false question. The second dictionary will the correct answer. The thrid string will be the wrong answer."
-    print(directions)
+    jsonEX = "[{\"question\":\"WhenistheexpectedreleasetimeframefortheiPhone16?\",\"correct_answer\":\"September2024\",\"wrong_answers\":[\"June2023\",\"January2025\",\"August2024\"]},{\"question\":\"WhatisoneexpectedchangeinthedesignoftheiPhone16basemodel?\",\"correct_answer\":\"Verticaldualcameralayout\",\"wrong_answers\":[\"Triplecamerasetup\",\"Horizontalcameralayout\",\"Nocameraimprovements\"]},{\"question\":\"WhatenhancementsareexpectedintheiPhone16Promodels?\",\"correct_answer\":\"Largerdisplaysandcameraimprovements\",\"wrong_answers\":[\"Smallerdisplaysandreducedcameraquality\",\"Nodesignchanges\",\"Slowerchargingspeedsandlowerbatterycapacity\"]},{\"question\":\"WhatnewtechnologyisrumoredtobeincludedintheiPhone16lineup?\",\"correct_answer\":\"Hapticbuttonsandadvancedcamerafeatures\",\"wrong_answers\":[\"Physicalbuttonsandbasiccamerafunctions\",\"Nonewtechnologyupgrades\",\"BiometricsensorsandAIintegration\"]},{\"question\":\"WhatisApple'sfocuswitheachnewiPhonerelease?\",\"correct_answer\":\"Innovationandtechnologyadvancements\",\"wrong_answers\":[\"Cuttingcostsandreducingfeatures\",\"Scalingdownproduction\",\"Delayingreleases\"]}]"
+
+    #print(prompt)
+    directions = f"Create a JSON list like {jsonEX} with {numQ} dictionaries in it like [(),(),(),(),()] to hold multiple true or false questions for the following prompt {prompt}. Each dictionary will have three strings. The first string in each dictionary will be the true or false question. The second dictionary will the correct answer. The thrid string will be the wrong answer."
+    #print(directions)
     messages = [{"role": "system", "content": "You are to true or false test questions based on an article."}]
     messages.append({"role": "user",
                      "content": directions})
