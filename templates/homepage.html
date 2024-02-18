@@ -11,6 +11,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Jost:ital,wght@0,200;1,200&family=Raleway:ital,wght@0,200;1,200&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sniglet:wght@400;800&display=swap" rel="stylesheet">
     <style>
         .outlined-box {
             border: 2px solid black; /* border width and color */
@@ -38,7 +41,7 @@
             margin-top: 10px
         }
         .quote-space {
-            margin-top: 180px; /* Adjust the margin as needed */
+            margin-top: 150px; /* Adjust the margin as needed */
         }
         .top-box {
             background-color: white; /* Background color for the white box */
@@ -68,7 +71,7 @@
         .paragraph{
             font-family: 'Caveat', cursive;
             text-align: center;
-            margin-top: -350px;
+            margin-top: -500px;
             font-size: 30px;
             text-decoration: underline;
         }
@@ -82,10 +85,16 @@
             font-size: 30px;
         }
         .mabove{
-            margin-top: 100px;
+            margin-top: 500px;
         }
         .mabovetext{
-            margin-top: -10px;
+            margin-top: -120px;
+        }
+        .logo{
+            font-family: 'Sniglet', sans-serif;
+            text-align: center;
+            margin-top: -350px;
+            font-size: 30px;
         }
     </style>
 </head>
@@ -94,9 +103,9 @@
 <div class="top-box">
     <!-- Bootstrap Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">
-            <img src="../../images/bookWormLogo.png" class="custom-image" alt="Logo">
-        </a>
+       <!-- <a class="navbar-brand" href="#">-->
+           <!--- <img src="../../images/bookWormLogo.png" class="custom-image" alt="Logo">-->
+        <!--</a>-->
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
@@ -109,7 +118,7 @@
                     <a class="nav-link" href="{% url 'add_article' %}">Link Drop</a>
                 </li>
             </ul>
-]            <ul class="navbar-nav navbar-right">
+            <ul class="navbar-nav navbar-right">
                 <li class="nav-item">
                     <a class="nav-link" href="#">Sign up</a>
                 </li>
@@ -123,18 +132,18 @@
 
 <div class="quote-text">
     <div class="quote above"> <!-- Added quote class -->
-        <h3 class="font-weight-bold quote-space" >Welcome to...</h3>
+        <h3 class="font-weight-bold quote-space" >Welcome to BookWorm!</h3>
     </div>
 </div>
 <div class="image-container">
-    <img src="../../images/bookWormLogoWorm.png" class="custom-image2" alt="Logo">
+    <!--<img src="../../images/bookWormLogoWorm.png" class="custom-image2" alt="Logo">-->
 </div>
 <div class="paragraph">
     <div class="paragraph"> <!-- Added quote class -->
         <p class="font-weight-bold quote-space underline-text">A new era in literacy education</p>
     </div>
 </div>
-]<div class="sub">
+<div class="sub">
     <div class="subheader"> <!-- Added quote class -->
         <p class="font-weight-bold quote-space underline-text mabove">About Us</p>
     </div class = "mabovetext">
