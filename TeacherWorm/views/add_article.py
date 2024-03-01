@@ -21,15 +21,18 @@ from TeacherWorm.models.articles import Article
 import openai
 from openai import OpenAI
 
+from dotenv import load_dotenv
 import os
 
 import json
 
 from TeacherWorm.models.questions import Question
 
-OPENAI_API_KEY = "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"
-#openai.api_key = OPENAI_API_KEY
-client = openai.OpenAI(api_key = OPENAI_API_KEY)
+# Load .env file
+load_dotenv()
+
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+client = openai.OpenAI(api_key=OPENAI_API_KEY)
 
 headers = {
     'accept': '*/*',
