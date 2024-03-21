@@ -9,72 +9,13 @@
     <!-- Include Google Fonts CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
     <style>
-        .outlined-box {
-            border: 2px solid black; /* border width and color */
-            padding: 20px; /* spacing between content and border */
-            width: 200px; /* width of the box */
-            height: 100px; /* height of the box */
+        body, html {
+            height: 100%;
+            margin: 0;
         }
-        .form-control {
-            margin-top: 20px; /* Adjust the margin as needed */
-            width: 350px; /* Adjust the width as needed */
-            border: 2px solid black; /* border width and color for the text box */
-            padding: 20px; /* spacing between text and border */
-            border-radius: 5px; /* border radius for rounded corners */
+        .vh-100-minus-navbar {
+            min-height: calc(100vh - 56px); /* Adjust based on your navbar's height */
         }
-
-        /* Center the button horizontally */
-        .center-button {
-            display: block;
-            margin: 0 auto;
-        }
-        /* Apply custom font to quote */
-        .quote h3 {
-            font-family: 'Caveat', cursive;
-            font-size: 50px; /* Adjust font size as needed */
-            text-align: center;
-            margin-bottom: 10px; /* Adjust spacing between quote and form */
-        }
-        .quote-space {
-            margin-top: 180px; /* Adjust the margin as needed */
-        }
-        .top-box {
-            background-color: white; /* Background color for the white box */
-            width: 100%; /* Width to stretch across the top of the screen */
-            border-bottom: 2px solid black; /* Border at the bottom of the white box */
-        }
-        .navbar-right .nav-item {
-            margin-left: auto;
-        }
-        .custom-image {
-            width: 100px; /* Adjust width as needed */
-            height: auto; /* Maintain aspect ratio */
-            margin-right: 10px; /* Adjust margin as needed */
-            margin: 0 auto;
-        }
-        body {
-            background: linear-gradient(to right, #f6cbd3, #FAF5FC); /* Background gradient */
-        }
-        /* Custom CSS for dropdown */
-        .custom-dropdown {
-            margin-top: 20px; /* Adjust top margin as needed */
-            text-align: center; /* Center the content horizontally */
-        }
-        .custom-dropdown .form-control {
-            width: 200px; /* Adjust width as needed */
-            margin: 10px auto; /* Center the text boxes horizontally */
-        }
-        .long-answer{
-            right-padding: 100px;
-        }
-        .adjuster{
-            margin-bottom: 300px;
-        }
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          }
     </style>
 </head>
 <body> <!-- Apply background color to the body element -->
@@ -108,29 +49,45 @@
         </div>
     </nav>
 </div>
-
-<div class="quote-text">
-    <div class="quote above"> <!-- Added quote class -->
-        <h3 class="font-weight-bold quote-space" >Prepare your students for the future with the knowledge of today!</h3>
-    </div>
-</div>
-
-<div class="container mt-5">
-    <form method="post" action="{% url 'add_article' %}">
-    <div class="col-md-6">
-        <select class="form-control" name="difficulty">
-            <option value="Original">ORIGINAL</option>
-            <option value="Easy">EASY</option>
-            <option value="Medium">MEDIUM</option>
-            <option value="Hard">HARD</option>
-        </select>
-    </div>
-    <div class="input-group mb-3">
-        {% csrf_token %}
-        <div class="input-group mb-3">
-            <input type="url" name="article_url" class="form-control" placeholder="Paste your article link here:" aria-label="Article link" aria-describedby="basic-addon1">
-        </div>
-        <button type="submit" class="btn btn-primary center-button">Assign article</button>
+            <div class="container vh-100-minus-navbar d-flex align-items-center justify-content-center">
+                <div class="w-100"> <!-- Wrapper to contain rows, ensuring they stack vertically -->
+                    <div class="row">
+                        <div class="col-md-12 mx-auto">
+                            <div class="card-title p-1">
+                                <div class="quote-text mx-auto mb-3 mt-3">
+                                    <div class="quote above">
+                                        <h1 class="font-weight-bold quote-space text-center" >Article Generator</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mx-auto">
+                            <div class="card shadow">
+                                <div class="card-body">
+                                    <form method="post" action="{% url 'add_article' %}" class="mx-auto">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">Reading Level:</div>
+                                            </div>
+                                            <select class="form-control mx-auto" name="difficulty">
+                                                <option value="Original">ORIGINAL</option>
+                                                <option value="Easy">EASY</option>
+                                                <option value="Medium">MEDIUM</option>
+                                                <option value="Hard">HARD</option>
+                                            </select>
+                                        </div>
+                                        {% csrf_token %}
+                                        <input type="url" name="article_url" class="form-control mb-3" placeholder="Paste article link here:" aria-label="Article link">
+                                        <button type="submit" class="btn btn-primary d-block mx-auto mb-3">Assign article</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         {% if article_generated %}
             <script>
                 window.onload = function() {
@@ -138,7 +95,6 @@
                 };
             </script>
         {% endif %}
-    </div>
-</form>
     </body>
+
 </html>
