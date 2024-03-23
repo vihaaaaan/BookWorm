@@ -8,46 +8,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Include Google Fonts CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
-<style>
-    .outlined-box {
-        border: 2px solid black;
-        padding: 20px;
-        margin-top: 20px;
-        margin-left: 10px; /* Smaller left margin */
-        margin-right: 10px; /* Smaller right margin */
-        width: auto; /* Adjust width based on the content and available space */
-    }
-    .center-button {
-        display: block;
-        margin: 0 auto;
-    }
-    .quote h3 {
-        font-family: 'Caveat', cursive;
-        font-size: 24px; /* Adjusted for article view */
-        text-align: center;
-        margin: 20px 0;
-    }
-    .top-box {
-        background-color: white;
-        width: 100%;
-        border-bottom: 2px solid black;
-    }
-    .navbar-right .nav-item {
-        margin-left: auto;
-    }
-    body {
-        background: linear-gradient(to right, #f6cbd3, #FAF5FC);
-    }
-    /* Additional styles for article content */
-    .article-content p {
-        white-space: pre-wrap;
-        font-size: 18px; /* Increased font size for article content */
-    }
-    /* Adjusting the overall container to allow for wider text areas */
-    .container {
-        max-width: 95%; /* Increase the maximum width of the container */
-    }
-</style>
 </head>
 <body>
 
@@ -80,64 +40,80 @@
         </div>
     </nav>
 </div>
-<div class="container mt-5">
-    <h1>{{ article.title }}</h1>
-    <div class="outlined-box">
-        {% if article.new_text %}
-            <div style="white-space: pre-wrap;">{{ article.new_text }}</div>
-        {% else %}
-            <div style="white-space: pre-wrap;">{{ article.original_text }}</div>
-        {% endif %}
-    </div>
-    <!-- Questions Section -->
-    <div class="mt-5">
-        <h2>Questions</h2>
-        <div class="outlined-box mt-3">
-            {% for question in questions %}
-            <p>{{ question.question }}</p>
-            {% if question.question_type == 'MCQ' %}
-            <!-- Display MCQ Choices -->
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="question{{ question.id }}" id="correctChoice{{ question.id }}" value="{{ question.mcq_correct_choice }}">
-                <label class="form-check-label" for="correctChoice{{ question.id }}">
-                    {{ question.mcq_correct_choice }}
-                </label>
-            </div>
-            {% if question.mcq_incorrect_choice_1 %}
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="question{{ question.id }}" id="incorrectChoice1{{ question.id }}" value="{{ question.mcq_incorrect_choice_1 }}">
-                <label class="form-check-label" for="incorrectChoice1{{ question.id }}">
-                    {{ question.mcq_incorrect_choice_1 }}
-                </label>
-            </div>
-            {% endif %}
-            {% if question.mcq_incorrect_choice_2 %}
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="question{{ question.id }}" id="incorrectChoice2{{ question.id }}" value="{{ question.mcq_incorrect_choice_2 }}">
-                <label class="form-check-label" for="incorrectChoice2{{ question.id }}">
-                    {{ question.mcq_incorrect_choice_2 }}
-                </label>
-            </div>
-            {% endif %}
-            {% if question.mcq_incorrect_choice_3 %}
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="question{{ question.id }}" id="incorrectChoice3{{ question.id }}" value="{{ question.mcq_incorrect_choice_3 }}">
-                <label class="form-check-label" for="incorrectChoice3{{ question.id }}">
-                    {{ question.mcq_incorrect_choice_3 }}
-                </label>
-            </div>
-            {% endif %}
-                        <br></br>
+<div class="container mt-3 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-6 my-3">
+            <img class="card-img-top" src="https://www.washingtonpost.com/wp-apps/imrs.php?src=https%3A%2F%2Farc-anglerfish-washpost-prod-washpost%252Es3%252Eamazonaws%252Ecom%2Fpublic%2F5N7F2GEFLRDZBLY7VVQDYT7G4M%252Ejpg&w=464&h=310" alt="Article Img" >
 
-            {% elif question.question_type == 'FRQ' %}
-                <textarea class="form-control" id="answer{{ question.id }}" rows="3" placeholder="Your answer here..."></textarea>
-                <br></br>
-            {% endif %}
-            {% endfor %}
-        <button type="submit" class="btn btn-primary center-button">Submit</button> 
         </div>
     </div>
-</div>
+    <div class="row">
+        <div class="col ">
+            <h1 class="font-weight-bold text-center">{{ article.title }}</h1>
+            <p class="text-center">{{ article.author }} <br> {{ article.date_published }}<p>
+            {% if article.new_text %}
+                <div style="white-space: pre-wrap;">{{ article.new_text }}</div>
+            {% else %}
+                <div style="white-space: pre-wrap;">{{ article.original_text }}</div>
+            {% endif %}
+        </div>
+    </div>
+    <hr class="my-4" style="border-color: #333;">
+    <!-- Questions Section -->
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="font-weight-bold">Test Your Knowledge:</h2>
+                    <div class="outlined-box mt-3">
+                        {% for question in questions %}
+                        <p>{{ question.question }}</p>
+                        {% if question.question_type == 'MCQ' %}
+                        <!-- Display MCQ Choices -->
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="question{{ question.id }}" id="correctChoice{{ question.id }}" value="{{ question.mcq_correct_choice }}">
+                            <label class="form-check-label" for="correctChoice{{ question.id }}">
+                                {{ question.mcq_correct_choice }}
+                            </label>
+                        </div>
+                        {% if question.mcq_incorrect_choice_1 %}
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="question{{ question.id }}" id="incorrectChoice1{{ question.id }}" value="{{ question.mcq_incorrect_choice_1 }}">
+                            <label class="form-check-label" for="incorrectChoice1{{ question.id }}">
+                                {{ question.mcq_incorrect_choice_1 }}
+                            </label>
+                        </div>
+                        {% endif %}
+                        {% if question.mcq_incorrect_choice_2 %}
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="question{{ question.id }}" id="incorrectChoice2{{ question.id }}" value="{{ question.mcq_incorrect_choice_2 }}">
+                            <label class="form-check-label" for="incorrectChoice2{{ question.id }}">
+                                {{ question.mcq_incorrect_choice_2 }}
+                            </label>
+                        </div>
+                        {% endif %}
+                        {% if question.mcq_incorrect_choice_3 %}
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="question{{ question.id }}" id="incorrectChoice3{{ question.id }}" value="{{ question.mcq_incorrect_choice_3 }}">
+                            <label class="form-check-label" for="incorrectChoice3{{ question.id }}">
+                                {{ question.mcq_incorrect_choice_3 }}
+                            </label>
+                        </div>
+                        {% endif %}
+                                    <br></br>
+
+                        {% elif question.question_type == 'FRQ' %}
+                            <textarea class="form-control" id="answer{{ question.id }}" rows="3" placeholder="Your answer here..."></textarea>
+                            <br></br>
+                        {% endif %}
+                        {% endfor %}
+                        <button type="submit" class="btn btn-primary center-button">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
 
 <!-- Include Bootstrap JS (Optional) -->
