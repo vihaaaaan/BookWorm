@@ -8,15 +8,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Include Google Fonts CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
-    <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-        }
-        .vh-100-minus-navbar {
-            min-height: calc(100vh - 56px); /* Adjust based on your navbar's height */
-        }
-    </style>
 </head>
 <body> <!-- Apply background color to the body element -->
 
@@ -49,21 +40,14 @@
         </div>
     </nav>
 </div>
-            <div class="container vh-100-minus-navbar d-flex align-items-center justify-content-center">
-                <div class="w-100"> <!-- Wrapper to contain rows, ensuring they stack vertically -->
+                <div class="container-fluid d-flex flex-column justify-content-center" style="min-height: 80vh;">
                     <div class="row">
-                        <div class="col-md-12 mx-auto">
-                            <div class="card-title p-1">
-                                <div class="quote-text mx-auto mb-3 mt-3">
-                                    <div class="quote above">
-                                        <h1 class="font-weight-bold quote-space text-center" >Article Generator</h1>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="col-12 text-center mb-4">
+                            <h1 class="font-weight-bold">Article Generator</h1>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 mx-auto">
+                        <div class="col-6 mx-auto">
                             <div class="card shadow">
                                 <div class="card-body">
                                     <form method="post" action="{% url 'add_article' %}" class="mx-auto">
@@ -86,7 +70,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
         {% if article_generated %}
             <script>
