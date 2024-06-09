@@ -38,7 +38,7 @@ headers = {
     'accept': '*/*',
     'accept-encoding': 'gzip, deflate, br',
     'accept-language': 'en-US,en;q=0.9',
-    'referer': 'https://www.google.com',
+    'referer': 'https://.google.com',
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36 Edg/85.0.564.44'
 }
 
@@ -62,9 +62,11 @@ def load_to_models(article, difficulty, new_text="", listMCQ=[], listFRQ=[], lis
     load_questions_to_models(article_instance, listMCQ, listFRQ, listTF)
 
 
-
 def add_article(request):
-    context = {'article_generated': False}  # Initialize the flag as False
+    context = {
+        'article_generated': False,
+        'error_message': None,
+    }  # Initialize the flag as False
     if request.method == 'POST':
         article_url = request.POST.get('article_url', None)
         num_MCQ = 7
@@ -78,23 +80,23 @@ def add_article(request):
         print(difficulty)
         print(type(difficulty))
         difficulty = difficulty.upper()
-        difficulty_num_map = {"EASY": 1, "MEDIUM" : 2, "HARD" : 3, "ORIGINAL" : 4}
+        difficulty_num_map = {"EASY": 1, "MEDIUM": 2, "HARD": 3, "ORIGINAL": 4}
         difficulty_num = difficulty_num_map[difficulty]
         if article_url:
             print("Successfully posted:", article_url)
             dict = get_the_news(article_url)
-            #Call a function to get scraped data from URL
-            #Call another function to load scraped data into database model
+            # Call a function to get scraped data from URL
+            # Call another function to load scraped data into database model
             if difficulty != "ORIGINAL":
                 newText = remake(dict[0], difficulty_num)
                 questMCQ = []
                 questMCQ = questionM(newText, num_MCQ)
-                questFRQ = questionF(newText,num_FRQ)
-                questTF = questionTF(newText,num_TF)
+                questFRQ = questionF(newText, num_FRQ)
+                questTF = questionTF(newText, num_TF)
             else:
                 newText = ""
 
-            #print(type(questMCQ))
+            # print(type(questMCQ))
             try:
                 listMCQ = json.loads(questMCQ)
             except:
@@ -110,16 +112,15 @@ def add_article(request):
             except:
                 listTF = []
                 print("failure")
-            #print(listMCQ[0])
-            #print(listFRQ[0])
-            #print(listTF[0])
-            
-            #print(quest)
-            #print(newText)
+            # print(listMCQ[0])
+            # print(listFRQ[0])
+            # print(listTF[0])
+
+            # print(quest)
+            # print(newText)
 
             load_to_models(dict, difficulty, newText, listMCQ, listFRQ, listTF)
             context['article_generated'] = True  # Set the flag as True if article processing is successful
-
 
     return render(request, 'TeacherWorm/teacher_view.html', context)
 

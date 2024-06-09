@@ -11,10 +11,25 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+from django.core.exceptions import ImproperlyConfigured
+
+# Check if .env file exists
+if os.path.exists('.env'):
+    load_dotenv()
+else:
+    raise ImproperlyConfigured("Cannot find .env file to configure environment variables")
+
+# Get all environment variables
+# OpenAI API
+OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
+# Webscraping - BeautifulSoup
+REFERER = os.environ.get('REFERER')
+USER_AGENT = os.environ.get('USER_AGENT')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -26,7 +41,6 @@ SECRET_KEY = 'django-insecure-_+v#$jwglo&@5ljz68vdfuc(bs#4fa$bk2dn%n94hihjag^ak=
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -72,7 +86,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'BookWorm.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
@@ -82,7 +95,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -102,7 +114,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -113,7 +124,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
