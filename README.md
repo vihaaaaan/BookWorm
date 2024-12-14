@@ -1,3 +1,3 @@
-# BookWorm
+# BookWorm - HackAI 2024, 2nd Place
 
-HackAI 2024 Project
+
