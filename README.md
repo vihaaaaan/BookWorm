@@ -1,6 +1,6 @@
-# BookWorm - HackAI 2024, 2nd Place
+# BookWorm
 
-Generative AI web application for educators to adapt news articles to student reading levels & generate quizzes guaging comprehension. 
+a pretty basic web app i built my freshman year for a hackathon. BookWorm let's educators paste links to news articles, adapt them to a student's personal reading level and generate coressponding questions to assess comprehension. 
 
-Built using Django, Tailwind CSS, and Postgres. Web scraping done via Beautiful Soup and article translations via GPT-3.5 API
+built using Django (+ Django Templates), Tailwind CSS, and Postgres. web scraping script uses Beautiful Soup and "personalization" + question generation done via GPT-3.5 API
 
